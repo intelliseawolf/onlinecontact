@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@types/set-cookie-parser": "^2.4.2",
+    "nuxt": "^3.2.3",
+    "set-cookie-parser": "^2.5.1"
+  }
+}
