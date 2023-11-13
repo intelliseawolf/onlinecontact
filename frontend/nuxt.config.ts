@@ -8,11 +8,23 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  css: ["~/assets/css/main.css"],
+  build: {
+    transpile: [
+      "@fortawesome/fontawesome-svg-core",
+      "@fortawesome/pro-solid-svg-icons",
+      "@fortawesome/pro-regular-svg-icons",
+      "@fortawesome/pro-light-svg-icons",
+      "@fortawesome/free-brands-svg-icons",
+    ],
+  },
+  css: [
+    "~/assets/css/main.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
+  ],
   runtimeConfig: {
     public: {
       baseUrl: "http://localhost:3000",
-      homeUrl: "/dashboard",
+      homeUrl: "/",
       loginUrl: "/login",
       verificationUrl: "/verify-email",
     },

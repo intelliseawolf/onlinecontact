@@ -51,6 +51,6 @@ export default class AuthService extends ApiServiceBase {
   }
 
   async user(): Promise<User> {
-    return await this.call("/api/user");
+    return await this.call("/api/me");
   }
 }
