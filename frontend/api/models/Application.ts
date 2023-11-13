@@ -1,3 +1,3 @@
 export default interface Application {
-    Laravel: string;
+  Laravel: string;
 }

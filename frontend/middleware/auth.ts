@@ -1,8 +1,12 @@
-export default defineNuxtRouteMiddleware(() => {
-    const { isAuthenticated } = useAuth();
-    const config = useRuntimeConfig();
+import { useAuthStore } from "~~/stores/auth";
+import { storeToRefs } from "pinia";
 
-    if (isAuthenticated.value === false) {
-        return navigateTo(config.public.loginUrl, { replace: true });
-    }
+export default defineNuxtRouteMiddleware(() => {
+  const authStore = useAuthStore();
+  const { isAuthenticated } = storeToRefs(authStore);
+  const config = useRuntimeConfig();
+
+  if (isAuthenticated.value === false) {
+    return navigateTo(config.public.loginUrl, { replace: true });
+  }
 });

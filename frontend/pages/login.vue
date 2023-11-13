@@ -1,67 +1,66 @@
 <script lang="ts" setup>
+import { object, string, ref as yupRef } from "yup";
+import { FormActions } from "vee-validate";
+import { useAuthStore } from "~~/stores/auth";
+
 definePageMeta({
   middleware: ["guest"],
 });
 
-interface Credentials {
-  username: string;
+interface Form {
+  email: string;
   password: string;
 }
 
-const { login } = useAuth();
+const { $api } = useNuxtApp();
+
+const initialValues = { email: "", password: "" };
 const config = useRuntimeConfig();
 const router = useRouter();
+const authStore = useAuthStore();
+const { login } = authStore;
 
-const credentials: Credentials = reactive({
-  username: "",
-  password: "",
+const schema = object({
+  email: string().required().email().label("Email"),
+  password: string().required().min(8).label("Your Password"),
 });
 
-const error = ref<string>("");
-
-async function submit() {
+async function submit(values: Form, actions: FormActions<Form>) {
   try {
-    error.value = "";
-
-    await login(credentials.username, credentials.password, true);
+    await login(values);
     router.push(config.public.homeUrl);
   } catch (err) {
-    error.value = err as string;
+    console.log(err);
   }
 }
 </script>
 
 <template>
-  <div>
-    <p>Page: login</p>
+  <div class="pt-[170px]">
+    <h1 class="text-4xl font-bold text-center">Welcome</h1>
 
-    <form @submit.prevent="submit">
-      <small>{{ error }}</small>
-
-      <input
-        id="username"
-        v-model="credentials.username"
-        type="text"
-        name="username"
-        placeholder="Your username"
-        autocomplete="off"
-      />
-      <input
-        id="password"
-        v-model="credentials.password"
+    <VForm
+      class="px-2 mt-10"
+      :validation-schema="schema"
+      :initial-values="initialValues"
+      @submit="submit"
+    >
+      <VTextInput name="email" placeholder="john@doe.com" />
+      <VTextInput
         type="password"
         name="password"
-        placeholder="Your password"
-        autocomplete="off"
+        placeholder="***********"
+        class="mt-5"
       />
 
-      <button type="submit">Login</button>
-    </form>
-
-    <NuxtLink to="/register" class="text-blue-500"> Register </NuxtLink>
-
-    <NuxtLink to="/password-reset" class="text-blue-500">
-      Forgot password
-    </NuxtLink>
+      <div class="px-10">
+        <button
+          type="submit"
+          class="bg-[#9378ff] rounded-full uppercase text-white py-3 w-full mt-[70px]"
+        >
+          Login
+        </button>
+      </div>
+    </VForm>
   </div>
 </template>
