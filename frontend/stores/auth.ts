@@ -25,7 +25,6 @@ export const useAuthStore = defineStore("authStore", () => {
     if (isAuthenticated.value === true) {
       return;
     }
-    console.log($api);
     await $api.authentication.login(email, password, remember);
     await fetchUser();
   }

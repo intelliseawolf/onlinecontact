@@ -30,7 +30,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   async function initUser(getter: () => Promise<User | null>) {
     try {
       const currentUser = await getter();
-      console.log(currentUser);
       setUser(currentUser);
     } catch (err) {
       if (
