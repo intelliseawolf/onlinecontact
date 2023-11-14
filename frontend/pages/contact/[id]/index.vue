@@ -62,6 +62,17 @@ onMounted(async () => {
       <span class="text-md text-[#ac9db0] truncate w-full">{{
         contact.email
       }}</span>
+
+      <div class="px-10 pt-5">
+        <NuxtLink :to="`/contact/${contact.id}/edit`">
+          <button
+            type="submit"
+            class="bg-[#9378ff] rounded-full uppercase text-white py-3 w-full"
+          >
+            Edit
+          </button>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>

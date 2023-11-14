@@ -9,9 +9,17 @@ const contactStore = useContactStore();
 const { createContact } = contactStore;
 const router = useRouter();
 
-async function handleCreate(form: FormData) {
-  await createContact(form);
-  router.push("/");
+async function handleSubmit(form: FormData) {
+  try {
+    await createContact(form);
+    router.push("/");
+  } catch (error: any) {
+    if (error.message) {
+      useNuxtApp().$toast.error(error.message);
+    } else {
+      console.error("An unexpected error occurred:", error);
+    }
+  }
 }
 </script>
 
@@ -23,6 +31,6 @@ async function handleCreate(form: FormData) {
         <div class="text-xl text-[#ac9db0] pl-2">Cancel</div>
       </NuxtLink>
     </div>
-    <contac-form @handleCreate="handleCreate" />
+    <contact-form @handleSubmit="handleSubmit" />
   </div>
 </template>

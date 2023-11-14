@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueContact;
 
-class CreateContactRequest extends FormRequest
+class UpdateContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class CreateContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', new UniqueContact],
+            'email' => ['required', 'string', 'email', new UniqueContact($this->contact->id)],
             'name' => ['required', 'string'],
             'title' => ['required', 'string'],
             'phone' => ['required', 'string'],

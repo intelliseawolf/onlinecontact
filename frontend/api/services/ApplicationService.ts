@@ -17,12 +17,19 @@ export default class ApplicationService extends ApiServiceBase {
   async createContact(contact: FormData) {
     return await this.call("/api/contacts", {
       method: "post",
-      headers: new Headers({ "content-type": "application/json" }),
       body: contact,
     });
   }
 
   async getContact(id: string) {
     return await this.call(`/api/contacts/${id}`);
+  }
+
+  async updateContact(contact: FormData, id: string) {
+    contact.append("_method", "put");
+    return await this.call(`/api/contacts/${id}`, {
+      method: "post",
+      body: contact,
+    });
   }
 }

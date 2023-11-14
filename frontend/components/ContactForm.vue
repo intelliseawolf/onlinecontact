@@ -2,6 +2,8 @@
 import { object, string, ref as yupRef } from "yup";
 import { FormActions } from "vee-validate";
 
+import Contact from "~~/api/models/Contact";
+
 interface Form {
   name: string;
   title: string;
@@ -14,13 +16,6 @@ interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
 
-const initialValues = {
-  name: "",
-  title: "",
-  phone: "",
-  email: "",
-  address: "",
-};
 const schema = object({
   name: string().required().label("Name"),
   title: string().required().label("Title"),
@@ -29,12 +24,28 @@ const schema = object({
   email: string().required().email().label("Email"),
 });
 
-const address = ref("");
 const avatar = ref();
 const { $api } = useNuxtApp();
-const emit = defineEmits(["handleCreate"]);
+const emit = defineEmits(["handleSubmit"]);
+const props = defineProps({
+  contact: {
+    type: Object as PropType<Contact>,
+    required: false,
+  },
+});
+const address = ref(props.contact?.address);
+
+const initialValues = {
+  name: props.contact?.name,
+  title: props.contact?.title,
+  phone: props.contact?.phone,
+  email: props.contact?.email,
+  address: props.contact?.address,
+};
 
 async function submit(values: Form, actions: FormActions<Form>) {
+  if (!address.value) return;
+
   try {
     values = {
       ...values,
@@ -47,7 +58,7 @@ async function submit(values: Form, actions: FormActions<Form>) {
       formData.append(key, values[key]);
     });
 
-    emit("handleCreate", formData);
+    emit("handleSubmit", formData);
   } catch (err) {
     console.log(err);
   }
@@ -114,7 +125,7 @@ function onFileChange(e: HTMLInputEvent) {
         type="submit"
         class="bg-[#9378ff] rounded-full uppercase text-white py-3 w-full mt-[30px]"
       >
-        Add
+        Save
       </button>
     </div>
   </VForm>

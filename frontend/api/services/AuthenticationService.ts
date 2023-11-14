@@ -3,7 +3,7 @@ import { ApiServiceBase } from "./ApiServiceBase";
 
 export default class AuthService extends ApiServiceBase {
   async login(email: string, password: string, remember = true): Promise<any> {
-    return await this.call("/login", {
+    return await this.call("/api/login", {
       method: "post",
       body: { email, password, remember },
     });

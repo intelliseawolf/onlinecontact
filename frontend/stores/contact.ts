@@ -23,5 +23,10 @@ export const useContactStore = defineStore("contactStore", () => {
     return await $api.application.getContact(id);
   }
 
-  return { contacts, getContacts, createContact, getContact };
+  async function updateContact(payload: FormData, id: string) {
+    const { $api } = useNuxtApp();
+    return await $api.application.updateContact(payload, id);
+  }
+
+  return { contacts, getContacts, createContact, getContact, updateContact };
 });
