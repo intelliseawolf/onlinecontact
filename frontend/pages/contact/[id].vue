@@ -15,7 +15,6 @@ onMounted(async () => {
   if (typeof route.params.id === "string") {
     const response = await getContact(route.params.id);
     contact.value = response.contact;
-    console.log(contact.value);
   }
 });
 </script>
