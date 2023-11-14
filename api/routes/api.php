@@ -20,5 +20,7 @@ Route::middleware(['auth:sanctum'])->get('/me', function (Request $request) {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/contact', [ContactController::class, 'list'])->name('contact.list');
+    Route::get('/contacts', [ContactController::class, 'list'])->name('contact.list');
+    Route::get('/contacts/{contact}', [ContactController::class, 'read'])->name('contact.read');
+    Route::post('/contacts', [ContactController::class, 'create'])->name('contact.create');
 });

@@ -12,8 +12,6 @@ interface Form {
   password: string;
 }
 
-const { $api } = useNuxtApp();
-
 const initialValues = { email: "", password: "" };
 const config = useRuntimeConfig();
 const router = useRouter();

@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       "@fortawesome/pro-regular-svg-icons",
       "@fortawesome/pro-light-svg-icons",
       "@fortawesome/free-brands-svg-icons",
+      "@fawmi/vue-google-maps",
     ],
   },
   css: [
@@ -27,6 +28,7 @@ export default defineNuxtConfig({
       homeUrl: "/",
       loginUrl: "/login",
       verificationUrl: "/verify-email",
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     },
   },
 });

@@ -11,6 +11,18 @@ export default class ApplicationService extends ApiServiceBase {
   }
 
   async getContacts(query?: GetContactsQuery) {
-    return await this.call("/api/contact", { query });
+    return await this.call("/api/contacts", { query });
+  }
+
+  async createContact(contact: FormData) {
+    return await this.call("/api/contacts", {
+      method: "post",
+      headers: new Headers({ "content-type": "application/json" }),
+      body: contact,
+    });
+  }
+
+  async getContact(id: string) {
+    return await this.call(`/api/contacts/${id}`);
   }
 }

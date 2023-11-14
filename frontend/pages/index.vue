@@ -38,13 +38,24 @@ watch(searchParams, () => {
         <font-awesome-icon icon="fas fa-magnifying-glass" />
       </div>
     </div>
+    <div class="px-10">
+      <NuxtLink to="/contact/add">
+        <button
+          type="submit"
+          class="bg-[#9378ff] rounded-full uppercase text-white py-3 w-full mb-5"
+        >
+          Add New
+        </button>
+      </NuxtLink>
+    </div>
     <div>
-      <contact-item
+      <NuxtLink
+        :to="`/contact/${contact.id}`"
         v-for="(contact, index) in contacts"
         :key="contact.id"
-        :index="index"
-        :contact="contact"
-      />
+      >
+        <contact-item :index="index" :contact="contact" />
+      </NuxtLink>
     </div>
   </div>
 </template>

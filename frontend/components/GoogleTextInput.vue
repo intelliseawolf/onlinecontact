@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 const props = defineProps({
-  type: {
-    type: String,
-    default: "text",
-  },
   name: {
     type: String,
     required: true,
@@ -17,17 +13,22 @@ const props = defineProps({
     default: "",
   },
 });
+const emit = defineEmits(["setPlace"]);
+
+function setPlace(value: any) {
+  emit("setPlace", value);
+}
 </script>
 
 <template>
   <div class="field">
     <label class="label text-xl font-semibold" v-if="label">{{ label }}</label>
     <VField :name="name" v-slot="{ field }">
-      <input
+      <GMapAutocomplete
         v-bind="field"
-        class="w-full bg-[#fbeeff] rounded-md p-2"
         :placeholder="placeholder"
-        :type="type"
+        class="w-full bg-[#fbeeff] rounded-md p-2"
+        @place_changed="setPlace"
       />
 
       <VErrorMessage :name="name" as="div" class="text-red-600 pt-1 pl-1" />

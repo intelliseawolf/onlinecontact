@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faMagnifyingGlass,
   faArrowRight,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faMagnifyingGlass, faArrowRight);
+library.add(faMagnifyingGlass, faArrowRight, faArrowLeft);
 
 // This is important, we are going to let Nuxt worry about the CSS
 config.autoAddCss = false;
